@@ -78,6 +78,9 @@ Fapi_Initialize(
         /* Repeatedly call the finish function, until FAPI has transitioned
            through all execution stages / states of this invocation. */
         r = Fapi_Initialize_Finish(context);
+        if ((r & ~TSS2_RC_LAYER_MASK) == TSS2_BASE_RC_TRY_AGAIN)
+            usleep(1000);
+
     } while ((r & ~TSS2_RC_LAYER_MASK) == TSS2_BASE_RC_TRY_AGAIN);
 
     LOG_TRACE("finished");

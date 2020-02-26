@@ -110,6 +110,9 @@ AC_ARG_ENABLE([fapi],
             [enable_fapi=yes])
 
 AM_CONDITIONAL(FAPI, test "x$enable_fapi" = "xyes")
+AS_IF([test "x$enable_fapi" != xno],
+      ERROR_IF_NO_PROG([systemd-sysusers])
+      ERROR_IF_NO_PROG([systemd-tmpfiles]))
 
 AC_ARG_ENABLE([fapi-async-tests],
     AS_HELP_STRING([--enable-fapi-async-tests],

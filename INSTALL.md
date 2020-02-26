@@ -16,6 +16,7 @@ following sections describe them for the supported platforms.
 * doxygen
 * OpenSSL development libraries and header files, or optionally libgcrypt
 * libcurl development libraries
+* systemd for systemd-sysusers and systemd-tmpfiles (if FAPI is enabled)
 
 * Please note that with FAPI enabled, the only option for the crypto backend is
   OpenSSL. If only ESAPI is enabled it can work with either openSSL or libgrcypt,
@@ -58,7 +59,8 @@ $ sudo apt -y install \
   libjson-c-dev \
   libini-config-dev \
   libcurl-dev \
-  libgcrypt-dev
+  libgcrypt-dev \
+  systemd
 ```
 Note: In some Ubuntu versions, the lcov and autoconf-archive packages are incompatible with each other. It is recommended to download autoconf-archive directly from upstream and copy `ax_code_coverage.m4` and `ax_prog_doxygen.m4` to the `m4/` subdirectory of your tpm2-tss directory.
 

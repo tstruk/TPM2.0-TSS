@@ -78,7 +78,13 @@ else
 fi
 
 if [ "$SCANBUILD" == "yes" ]; then
-  scan-build --status-bugs make -j distcheck
+  RESULT_DIR=$(mktemp -d /tmp/scan_XXXXXX)
+  scan-build --status-bugs make -j distcheck -o $RESULT_DIR
+  if [ $? -ne 0 ]; then
+    tar -zcvf {$RESULT_DIR}.tar.gz {$RESULT_DIR}
+	echo "Scan results attached" | mail -s "scan-build results" -a {$RESULT_DIR}.tar.gz tadeusz.struk@intel.com
+	exit 1
+  fi
 elif [ "$CC" == "clang" ]; then
   make -j distcheck
 else
